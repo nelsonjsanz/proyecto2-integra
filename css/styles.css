@@ -1,0 +1,9 @@
+:root {
+    --primary-color: #2563eb;
+    --bg-color: #f8fafc;
+}
+body {
+    font-family: system-ui, sans-serif;
+    background-color: var(--bg-color);
+    padding: 20px;
+}
