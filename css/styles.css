@@ -1,0 +1,289 @@
+:root {
+  --teal-primary: #0a7b8c;
+  --teal-dark: #086371;
+  --bg-page: #e8ecf1;
+  --bg-card: #ffffff;
+  --text-main: #1f2937;
+  --text-muted: #64748b;
+  --border-ui: #d1d5db;
+  --border-focus: #0a7b8c;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--bg-page);
+  color: var(--text-main);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-header {
+  height: 56px;
+  background-color: var(--teal-primary);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.menu-icon {
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 6px;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  cursor: pointer;
+}
+
+.menu-icon span {
+  display: block;
+  width: 16px;
+  height: 2px;
+  background-color: #ffffff;
+}
+
+.app-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.user-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 24px 16px;
+}
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-ui);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 550px;
+}
+
+.section-title {
+  width: 100%;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--teal-dark);
+  margin-bottom: 16px;
+}
+
+.input-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.prefix-label {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--teal-dark);
+}
+
+.math-field-wrapper {
+  flex: 1;
+  background: #f8fafc;
+  border: 1.5px solid var(--border-ui);
+  border-radius: 8px;
+  padding: 4px 8px;
+  transition: border-color 0.15s ease;
+}
+
+.math-field-wrapper:focus-within {
+  border-color: var(--border-focus);
+  background: #ffffff;
+}
+
+math-field {
+  font-size: 1.25rem;
+  outline: none;
+  border: none;
+  background: transparent;
+  width: 100%;
+}
+
+.ejemplos-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.ejemplos-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.btn-chip {
+  background: #f1f5f9;
+  border: 1px solid var(--border-ui);
+  border-radius: 16px;
+  padding: 3px 12px;
+  font-size: 0.85rem;
+  font-family: monospace;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-chip:hover {
+  background: #e2e8f0;
+  border-color: #94a3b8;
+}
+
+#tablero {
+  width: 500px;
+  height: 500px;
+  border: 1px solid var(--border-ui);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.calc-row {
+  width: 100%;
+  margin-top: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.calc-inputs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.calc-inputs label {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.calc-inputs input {
+  width: 60px;
+  padding: 6px 8px;
+  font-size: 0.95rem;
+  border: 1.5px solid var(--border-ui);
+  border-radius: 6px;
+  outline: none;
+}
+
+.calc-inputs input:focus {
+  border-color: var(--border-focus);
+}
+
+.calc-result {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--teal-dark);
+}
+
+.btn-primary {
+  background-color: var(--teal-primary);
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--teal-dark);
+}
+
+.btn-secondary {
+  background-color: #f1f5f9;
+  color: var(--text-main);
+  border: 1px solid var(--border-ui);
+  border-radius: 6px;
+  padding: 7px 14px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.btn-secondary:hover {
+  background-color: #e2e8f0;
+}
+
+math-field::part(menu-toggle), math-field::part(virtual-keyboard-toggle) {
+   display: none;
+}
+
+.ajuste{
+    display: flex;
+    flex-direction: column;
+}
+
+.ajuste div{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-self: baseline;
+}
+
+.btn-validar{
+  padding: 10px 25px 10px 25px;
+  background-color: rgb(242, 53, 5);
+  border-radius: 20px;
+  margin-left: 15px;
+  color: white;
+  border: #048cfb 1px solid;
+}
+
+.btn-validar:hover{
+  background-color: #048cfb;
+  color: white;
+  border: rgb(242, 53, 5) 1px solid;
+  cursor: pointer;
+}

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 4 - Graficador Integrado</title>
+    <link rel="stylesheet" href="js/lib/jsxgraph.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/lib/mathlive.min.js"></script>
+    <script src="js/lib/compute-engine.js"></script>
+    <script src="js/lib/jsxgraphcore.js"></script>
+    <script>
+        window.MathfieldElement = window.MathfieldElement || {};
+        window.MathfieldElement.fontsDirectory = ".js/lib/fonts/";
+        window.MathfieldElement.soundsDirectory = null;
+    </script>
+</head>
+
+<body>
+    <template id="formulario">
+        <div class="input-row ajuste">
+            <div>
+                <span id="guia"></span>
+                <div id="formula_guia"></div>
+            </div>
+            <div>
+                <span class="prefix-label" id="label"></span>
+                <div class="math-field-wrapper" id="formula"></div>
+                <input type="button" class="btn-validar" value="Validar">
+            </div>
+        </div>
+    </template>
+    <header class="app-header">
+        <div class="header-left">
+            <button class="menu-icon" aria-label="Menú">
+                <span></span><span></span><span></span>
+            </button>
+            <span class="app-title">Plataforma Interactiva</span>
+        </div>
+        <div class="user-badge">
+            <span>Estudiante 001</span>
+            <div class="avatar">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                    <path
+                        d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                </svg>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="card">
+            <h2 class="section-title">Resolver la siguiente integral</h2>
+
+            <div id="caso_estudio" class="container-fluit">
+            </div>
+
+            <div id="tablero" class="jxgbox"></div>
+
+            <div class="calc-row">
+                <div class="calc-inputs">
+                    <label for="val-x">x =</label>
+                    <input type="number" id="val-x" value="2" step="any">
+                    <button id="btn-calcular" class="btn-secondary">Calcular f(x)</button>
+                </div>
+                <div class="calc-result">
+                    <span id="resultado-calc"></span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script type="module" src="./js/main.js"></script>
+</body>
+
+</html>
