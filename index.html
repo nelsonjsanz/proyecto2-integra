@@ -23,10 +23,10 @@
                 <span id="guia"></span>
                 <div id="formula_guia"></div>
             </div>
-            <div>
-                <span class="prefix-label" id="label"></span>
+            <div style="border-radius: 10px; padding: 5px;" class="pasos">
+                <div><span class="prefix-label" id="label"></span></div>
                 <div class="math-field-wrapper" id="formula"></div>
-                <input type="button" class="btn-validar" value="Validar">
+                <div><input type="button" class="btn-validar" value="Validar"></div>
             </div>
         </div>
     </template>
@@ -50,22 +50,9 @@
 
     <main class="main-content">
         <div class="card">
-            <h2 class="section-title">Resolver la siguiente integral</h2>
+            <h2 class="section-title">Ejercicio a resolver</h2>
 
-            <div id="caso_estudio" class="container-fluit">
-            </div>
-
-            <div id="tablero" class="jxgbox"></div>
-
-            <div class="calc-row">
-                <div class="calc-inputs">
-                    <label for="val-x">x =</label>
-                    <input type="number" id="val-x" value="2" step="any">
-                    <button id="btn-calcular" class="btn-secondary">Calcular f(x)</button>
-                </div>
-                <div class="calc-result">
-                    <span id="resultado-calc"></span>
-                </div>
+            <div id="caso_estudio" class="container">
             </div>
         </div>
     </main>
