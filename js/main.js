@@ -1,6 +1,7 @@
 import {Banco} from "./modulos/banco.js"
 import { numeroAleatorio } from "./modulos/funciones.js"
 import { evaluar } from "./modulos/correccion.js"
+import { iniciar as iniciarGrafica, mostrarRespuesta } from "./modulos/grafica.js"
 
 const formulario = document.querySelector("#formulario");
 let rand = numeroAleatorio(1,Banco.length)
@@ -22,6 +23,8 @@ math_integral.casos.forEach((element,y) => {
     caso_estudio.appendChild(clonedFormulario);
 });
 
+iniciarGrafica(math_integral);
+
 document.querySelectorAll(".btn-validar").forEach(function(boton) {
     boton.addEventListener('click', function() {
         let resp = this.parentElement.parentElement.children[1].children[0].value
@@ -35,6 +38,7 @@ document.querySelectorAll(".btn-validar").forEach(function(boton) {
             this.parentElement.parentElement.style.borderWidth = "2px";
             this.parentElement.parentElement.style.borderStyle = "solid";
         }
+        mostrarRespuesta(math_integral, resp, evaluacion);
         console.log(evaluacion)
     });
 });
