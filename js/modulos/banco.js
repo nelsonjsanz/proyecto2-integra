@@ -1,3 +1,434 @@
-export function iniciar(app) {
-    // Módulo listo para programar
-}
+let Banco = [
+    {
+        pasos: 6,
+        casos: [
+            "\\int_0^{3}\\!\\left(x^2+2\\right)\\,\\mathrm{d}x",
+            "=\\int_0^{3}\\!\\left(\\placeholder[answer0]{?}\\right)\\,\\mathrm{d}x + \\int_0^{3}\\!\\left(\\placeholder[answer1]{?}\\right)\\,\\mathrm{d}x",
+            "=\\left\\lbrack\\frac{x^{\\placeholder[answer2]{?}}}{\\placeholder[answer3]{?}}\\right\\rbrack_\\placeholder[answer4]{?}^{\\placeholder[answer5]{?}} + \\left\\lbrack\\frac{2x^{\\placeholder[answer6]{?}}}{\\placeholder[answer7]{?}}\\right\\rbrack_\\placeholder[answer8]{?}^{\\placeholder[answer9]{?}}",
+            "=\\left\\lbrack\\frac{x^{\\placeholder[answer10]{?}}}{{\\placeholder[answer11]{?}}}+\\frac{2x^{\\placeholder[answer12]{?}}}{{\\placeholder[answer13]{?}}}\\right\\rbrack_0^{3}",
+            "=\\left(\\frac{\\placeholder[answer14]{?}}^{\\placeholder[answer15]{?}}}+ 2\\placeholder[answer16]{?}\\right)-\\left(\\frac{\\placeholder[answer17]{?}}^{\\placeholder[answer18]{?}}} + {\\placeholder[answer19]{?}}\\right)",
+            "\\int_0^{3}\\!\\left(x^2+2\\right)\\,\\mathrm{d}x = {\\placeholder[answer20]{?}}"
+        ],
+        resultados:{
+            answer0: { valorCorrecto: "x^2", estado: false },
+            answer1: { valorCorrecto: "2", estado: false },
+            answer2: { valorCorrecto: "2+1", estado: false },
+            answer3: { valorCorrecto: "2+1", estado: false },
+            answer4: { valorCorrecto: "0", estado: false },
+            answer5: { valorCorrecto: "3", estado: false },
+            answer6: { valorCorrecto: "0+1", estado: false },
+            answer7: { valorCorrecto: "0+1", estado: false },
+            answer8: { valorCorrecto: "0", estado: false },
+            answer9: { valorCorrecto: "3", estado: false },
+            answer10: { valorCorrecto: "3", estado: false },
+            answer11: { valorCorrecto: "3", estado: false },
+            answer12: { valorCorrecto: "1", estado: false },
+            answer13: { valorCorrecto: "1", estado: false },
+            answer14: { valorCorrecto: "3^3", estado: false },
+            answer15: { valorCorrecto: "3", estado: false },
+            answer16: { valorCorrecto: "3", estado: false },
+            answer17: { valorCorrecto: "0", estado: false },
+            answer18: { valorCorrecto: "3", estado: false },
+            answer19: { valorCorrecto: "0", estado: false },
+            answer20: { valorCorrecto: "15", estado: false }
+        },
+        respuestas:[],
+        guia:[
+            { text:"Resolver la integral:", boton: false, formula: "" },
+            { text:"Separamos la integral", boton: true, formula: "" },
+            { text:"Aplica la integral sabiendo que ", boton: true, formula: "<math-field readonly>x^{n}=\\frac{x^{n+1}}{n+1}</math-field>" },
+            { text:"Unimos ambos resultados", boton: true, formula: "" },
+            { text:"Evaluamos en los intervalos dados", boton: true, formula: "" },
+            { text:"Resultado", boton: true, formula: "" }
+        ]
+    },
+    {
+        pasos: 6,
+        casos: [
+            "\\int_1^{4}\\!\\left(x^2+1\\right)\\,\\mathrm{d}x",
+            "=\\int_1^{4}\\!\\left(\\placeholder[answer0]{?}\\right)\\,\\mathrm{d}x + \\int_1^{4}\\!\\left(\\placeholder[answer1]{?}\\right)\\,\\mathrm{d}x",
+            "=\\left\\lbrack\\frac{x^{\\placeholder[answer2]{?}}}{\\placeholder[answer3]{?}}\\right\\rbrack_\\placeholder[answer4]{?}^{\\placeholder[answer5]{?}} + \\left\\lbrack\\frac{1x^{\\placeholder[answer6]{?}}}{\\placeholder[answer7]{?}}\\right\\rbrack_\\placeholder[answer8]{?}^{\\placeholder[answer9]{?}}",
+            "=\\left\\lbrack\\frac{x^{\\placeholder[answer10]{?}}}{{\\placeholder[answer11]{?}}}+\\frac{1x^{\\placeholder[answer12]{?}}}{{\\placeholder[answer13]{?}}}\\right\\rbrack_1^{4}",
+            "=\\left(\\frac{\\placeholder[answer14]{?}}^{\\placeholder[answer15]{?}}}+ 1\\cdot\\placeholder[answer16]{?}\\right)-\\left(\\frac{\\placeholder[answer17]{?}}^{\\placeholder[answer18]{?}}} + 1\\cdot{\\placeholder[answer19]{?}}\\right)",
+            "\\int_1^{4}\\!\\left(x^2+1\\right)\\,\\mathrm{d}x = {\\placeholder[answer20]{?}}"
+        ],
+        resultados:{
+            answer0: { valorCorrecto: "x^2", estado: false },
+            answer1: { valorCorrecto: "1", estado: false },
+            answer2: { valorCorrecto: "2+1", estado: false },
+            answer3: { valorCorrecto: "2+1", estado: false },
+            answer4: { valorCorrecto: "1", estado: false },
+            answer5: { valorCorrecto: "4", estado: false },
+            answer6: { valorCorrecto: "0+1", estado: false },
+            answer7: { valorCorrecto: "0+1", estado: false },
+            answer8: { valorCorrecto: "1", estado: false },
+            answer9: { valorCorrecto: "4", estado: false },
+            answer10: { valorCorrecto: "3", estado: false },
+            answer11: { valorCorrecto: "3", estado: false },
+            answer12: { valorCorrecto: "1", estado: false },
+            answer13: { valorCorrecto: "1", estado: false },
+            answer14: { valorCorrecto: "4^3", estado: false },
+            answer15: { valorCorrecto: "3", estado: false },
+            answer16: { valorCorrecto: "4", estado: false },
+            answer17: { valorCorrecto: "1^3", estado: false },
+            answer18: { valorCorrecto: "3", estado: false },
+            answer19: { valorCorrecto: "1", estado: false },
+            answer20: { valorCorrecto: "24", estado: false }
+        },
+        respuestas:[],
+        guia:[
+            { text:"Resolver la integral:", boton: false, formula: "" },
+            { text:"Separamos la integral", boton: true, formula: "" },
+            { text:"Aplica la integral sabiendo que ", boton: true, formula: "<math-field readonly>x^{n}=\\frac{x^{n+1}}{n+1}</math-field>" },
+            { text:"Unimos ambos resultados", boton: true, formula: "" },
+            { text:"Evaluamos en los intervalos dados", boton: true, formula: "" },
+            { text:"Resultado", boton: true, formula: "" }
+        ]
+    },
+    {
+        pasos: 6,
+        casos: [
+            "\\int_0^{\\infty}\\!\\left(x^2+4\\right)\\,\\mathrm{d}x",
+            "=\\int_0^{\\infty}\\!\\left(\\placeholder[answer0]{?}\\right)\\,\\mathrm{d}x + \\int_0^{\\infty}\\!\\left(\\placeholder[answer1]{?}\\right)\\,\\mathrm{d}x",
+            "=\\left\\lbrack\\frac{x^{\\placeholder[answer2]{?}}}{\\placeholder[answer3]{?}}\\right\\rbrack_\\placeholder[answer4]{?}^{\\placeholder[answer5]{?}} + \\left\\lbrack\\frac{4x^{\\placeholder[answer6]{?}}}{\\placeholder[answer7]{?}}\\right\\rbrack_\\placeholder[answer8]{?}^{\\placeholder[answer9]{?}}",
+            "=\\left\\lbrack\\frac{x^{\\placeholder[answer10]{?}}}{{\\placeholder[answer11]{?}}}+\\frac{4x^{\\placeholder[answer12]{?}}}{{\\placeholder[answer13]{?}}}\\right\\rbrack_0^{\\infty}",
+            "=\\left(\\frac{\\placeholder[answer14]{?}}^{\\placeholder[answer15]{?}}}+ 4\\placeholder[answer16]{?}\\right)-\\left(\\frac{\\placeholder[answer17]{?}}^{\\placeholder[answer18]{?}}} + {\\placeholder[answer19]{?}}\\right)",
+            "\\int_0^{\\infty}\\!\\left(x^2+4\\right)\\,\\mathrm{d}x = {\\placeholder[answer20]{?}}"
+        ],
+        resultados:{
+            answer0: { valorCorrecto: "x^2", estado: false },
+            answer1: { valorCorrecto: "4", estado: false },
+            answer2: { valorCorrecto: "2+1", estado: false },
+            answer3: { valorCorrecto: "2+1", estado: false },
+            answer4: { valorCorrecto: "0", estado: false },
+            answer5: { valorCorrecto: "\\infty", estado: false },
+            answer6: { valorCorrecto: "0+1", estado: false },
+            answer7: { valorCorrecto: "0+1", estado: false },
+            answer8: { valorCorrecto: "0", estado: false },
+            answer9: { valorCorrecto: "\\infty", estado: false },
+            answer10: { valorCorrecto: "3", estado: false },
+            answer11: { valorCorrecto: "3", estado: false },
+            answer12: { valorCorrecto: "1", estado: false },
+            answer13: { valorCorrecto: "1", estado: false },
+            answer14: { valorCorrecto: "\\infty^3", estado: false },
+            answer15: { valorCorrecto: "3", estado: false },
+            answer16: { valorCorrecto: "\\infty", estado: false },
+            answer17: { valorCorrecto: "0", estado: false },
+            answer18: { valorCorrecto: "3", estado: false },
+            answer19: { valorCorrecto: "0", estado: false },
+            answer20: { valorCorrecto: "\\infty", estado: false }
+        },
+        respuestas:[],
+        guia:[
+            { text:"Resolver la integral:", boton: false, formula: "" },
+            { text:"Separamos la integral", boton: true, formula: "" },
+            { text:"Aplica la integral sabiendo que ", boton: true, formula: "<math-field readonly>x^{n}=\\frac{x^{n+1}}{n+1}</math-field>" },
+            { text:"Unimos ambos resultados", boton: true, formula: "" },
+            { text:"Evaluamos en los intervalos dados", boton: true, formula: "" },
+            { text:"Resultado", boton: true, formula: "" }
+        ]
+    },
+    {
+        pasos: 6,
+        casos: [
+            "\\int_0^{3}\\!\\left(x^2+4\\right)\\,\\mathrm{d}x",
+            "=\\int_0^{3}\\!\\left(\\placeholder[answer0]{?}\\right)\\,\\mathrm{d}x + \\int_0^{3}\\!\\left(\\placeholder[answer1]{?}\\right)\\,\\mathrm{d}x",
+            "=\\left\\lbrack\\frac{x^{\\placeholder[answer2]{?}}}{\\placeholder[answer3]{?}}\\right\\rbrack_\\placeholder[answer4]{?}^{\\placeholder[answer5]{?}} + \\left\\lbrack\\frac{4x^{\\placeholder[answer6]{?}}}{\\placeholder[answer7]{?}}\\right\\rbrack_\\placeholder[answer8]{?}^{\\placeholder[answer9]{?}}",
+            "=\\left\\lbrack\\frac{x^{\\placeholder[answer10]{?}}}{{\\placeholder[answer11]{?}}}+\\frac{4x^{\\placeholder[answer12]{?}}}{{\\placeholder[answer13]{?}}}\\right\\rbrack_0^{3}",
+            "=\\left(\\frac{\\placeholder[answer14]{?}}^{\\placeholder[answer15]{?}}}+ 4\\cdot\\placeholder[answer16]{?}\\right)-\\left(\\frac{\\placeholder[answer17]{?}}^{\\placeholder[answer18]{?}}} + {\\placeholder[answer19]{?}}\\right)",
+            "\\int_0^{3}\\!\\left(x^2+4\\right)\\,\\mathrm{d}x = {\\placeholder[answer20]{?}}"
+        ],
+        resultados:{
+            answer0: { valorCorrecto: "x^2", estado: false },
+            answer1: { valorCorrecto: "4", estado: false },
+            answer2: { valorCorrecto: "2+1", estado: false },
+            answer3: { valorCorrecto: "2+1", estado: false },
+            answer4: { valorCorrecto: "0", estado: false },
+            answer5: { valorCorrecto: "3", estado: false },
+            answer6: { valorCorrecto: "0+1", estado: false },
+            answer7: { valorCorrecto: "0+1", estado: false },
+            answer8: { valorCorrecto: "0", estado: false },
+            answer9: { valorCorrecto: "3", estado: false },
+            answer10: { valorCorrecto: "3", estado: false },
+            answer11: { valorCorrecto: "3", estado: false },
+            answer12: { valorCorrecto: "1", estado: false },
+            answer13: { valorCorrecto: "1", estado: false },
+            answer14: { valorCorrecto: "3^3", estado: false },
+            answer15: { valorCorrecto: "3", estado: false },
+            answer16: { valorCorrecto: "3", estado: false },
+            answer17: { valorCorrecto: "0", estado: false },
+            answer18: { valorCorrecto: "3", estado: false },
+            answer19: { valorCorrecto: "0", estado: false },
+            answer20: { valorCorrecto: "21", estado: false }
+        },
+        respuestas:[],
+        guia:[
+            { text:"Resolver la integral:", boton: false, formula: "" },
+            { text:"Separamos la integral", boton: true, formula: "" },
+            { text:"Aplica la integral sabiendo que ", boton: true, formula: "<math-field readonly>x^{n}=\\frac{x^{n+1}}{n+1}</math-field>" },
+            { text:"Unimos ambos resultados", boton: true, formula: "" },
+            { text:"Evaluamos en los intervalos dados", boton: true, formula: "" },
+            { text:"Resultado", boton: true, formula: "" }
+        ]
+    },
+    {
+        pasos: 6,
+        casos: [
+            "\\int_1^{\\infty}\\!\\left(x^2+2\\right)\\,\\mathrm{d}x",
+            "=\\int_1^{\\infty}\\!\\left(\\placeholder[answer0]{?}\\right)\\,\\mathrm{d}x + \\int_1^{\\infty}\\!\\left(\\placeholder[answer1]{?}\\right)\\,\\mathrm{d}x",
+            "=\\left\\lbrack\\frac{x^{\\placeholder[answer2]{?}}}{\\placeholder[answer3]{?}}\\right\\rbrack_\\placeholder[answer4]{?}^{\\placeholder[answer5]{?}} + \\left\\lbrack\\frac{2x^{\\placeholder[answer6]{?}}}{\\placeholder[answer7]{?}}\\right\\rbrack_\\placeholder[answer8]{?}^{\\placeholder[answer9]{?}}",
+            "=\\left\\lbrack\\frac{x^{\\placeholder[answer10]{?}}}{{\\placeholder[answer11]{?}}}+\\frac{2x^{\\placeholder[answer12]{?}}}{{\\placeholder[answer13]{?}}}\\right\\rbrack_1^{\\infty}",
+            "=\\left(\\frac{\\placeholder[answer14]{?}}^{\\placeholder[answer15]{?}}}+ 2\\cdot\\placeholder[answer16]{?}\\right)-\\left(\\frac{\\placeholder[answer17]{?}}^{\\placeholder[answer18]{?}}} + 2\\cdot{\\placeholder[answer19]{?}}\\right)",
+            "\\int_1^{\\infty}\\!\\left(x^2+2\\right)\\,\\mathrm{d}x = {\\placeholder[answer20]{?}}"
+        ],
+        resultados:{
+            answer0: { valorCorrecto: "x^2", estado: false },
+            answer1: { valorCorrecto: "2", estado: false },
+            answer2: { valorCorrecto: "2+1", estado: false },
+            answer3: { valorCorrecto: "2+1", estado: false },
+            answer4: { valorCorrecto: "1", estado: false },
+            answer5: { valorCorrecto: "\\infty", estado: false },
+            answer6: { valorCorrecto: "0+1", estado: false },
+            answer7: { valorCorrecto: "0+1", estado: false },
+            answer8: { valorCorrecto: "1", estado: false },
+            answer9: { valorCorrecto: "\\infty", estado: false },
+            answer10: { valorCorrecto: "3", estado: false },
+            answer11: { valorCorrecto: "3", estado: false },
+            answer12: { valorCorrecto: "1", estado: false },
+            answer13: { valorCorrecto: "1", estado: false },
+            answer14: { valorCorrecto: "\\infty^3", estado: false },
+            answer15: { valorCorrecto: "3", estado: false },
+            answer16: { valorCorrecto: "\\infty", estado: false },
+            answer17: { valorCorrecto: "1^3", estado: false },
+            answer18: { valorCorrecto: "3", estado: false },
+            answer19: { valorCorrecto: "1", estado: false },
+            answer20: { valorCorrecto: "\\infty", estado: false }
+        },
+        respuestas:[],
+        guia:[
+            { text:"Resolver la integral:", boton: false, formula: "" },
+            { text:"Separamos la integral", boton: true, formula: "" },
+            { text:"Aplica la integral sabiendo que ", boton: true, formula: "<math-field readonly>x^{n}=\\frac{x^{n+1}}{n+1}</math-field>" },
+            { text:"Unimos ambos resultados", boton: true, formula: "" },
+            { text:"Evaluamos en los intervalos dados", boton: true, formula: "" },
+            { text:"Resultado", boton: true, formula: "" }
+        ]
+    },
+    {
+        pasos: 6,
+        casos: [
+            "\\int_2^{5}\\!\\left(x^2+1\\right)\\,\\mathrm{d}x",
+            "=\\int_2^{5}\\!\\left(\\placeholder[answer0]{?}\\right)\\,\\mathrm{d}x + \\int_2^{5}\\!\\left(\\placeholder[answer1]{?}\\right)\\,\\mathrm{d}x",
+            "=\\left\\lbrack\\frac{x^{\\placeholder[answer2]{?}}}{\\placeholder[answer3]{?}}\\right\\rbrack_\\placeholder[answer4]{?}^{\\placeholder[answer5]{?}} + \\left\\lbrack\\frac{1x^{\\placeholder[answer6]{?}}}{\\placeholder[answer7]{?}}\\right\\rbrack_\\placeholder[answer8]{?}^{\\placeholder[answer9]{?}}",
+            "=\\left\\lbrack\\frac{x^{\\placeholder[answer10]{?}}}{{\\placeholder[answer11]{?}}}+\\frac{1x^{\\placeholder[answer12]{?}}}{{\\placeholder[answer13]{?}}}\\right\\rbrack_2^{5}",
+            "=\\left(\\frac{\\placeholder[answer14]{?}}^{\\placeholder[answer15]{?}}}+ 1\\cdot\\placeholder[answer16]{?}\\right)-\\left(\\frac{\\placeholder[answer17]{?}}^{\\placeholder[answer18]{?}}} + 1\\cdot{\\placeholder[answer19]{?}}\\right)",
+            "\\int_2^{5}\\!\\left(x^2+1\\right)\\,\\mathrm{d}x = {\\placeholder[answer20]{?}}"
+        ],
+        resultados:{
+            answer0: { valorCorrecto: "x^2", estado: false },
+            answer1: { valorCorrecto: "1", estado: false },
+            answer2: { valorCorrecto: "2+1", estado: false },
+            answer3: { valorCorrecto: "2+1", estado: false },
+            answer4: { valorCorrecto: "2", estado: false },
+            answer5: { valorCorrecto: "5", estado: false },
+            answer6: { valorCorrecto: "0+1", estado: false },
+            answer7: { valorCorrecto: "0+1", estado: false },
+            answer8: { valorCorrecto: "2", estado: false },
+            answer9: { valorCorrecto: "5", estado: false },
+            answer10: { valorCorrecto: "3", estado: false },
+            answer11: { valorCorrecto: "3", estado: false },
+            answer12: { valorCorrecto: "1", estado: false },
+            answer13: { valorCorrecto: "1", estado: false },
+            answer14: { valorCorrecto: "5^3", estado: false },
+            answer15: { valorCorrecto: "3", estado: false },
+            answer16: { valorCorrecto: "5", estado: false },
+            answer17: { valorCorrecto: "2^3", estado: false },
+            answer18: { valorCorrecto: "3", estado: false },
+            answer19: { valorCorrecto: "2", estado: false },
+            answer20: { valorCorrecto: "42", estado: false }
+        },
+        respuestas:[],
+        guia:[
+            { text:"Resolver la integral:", boton: false, formula: "" },
+            { text:"Separamos la integral", boton: true, formula: "" },
+            { text:"Aplica la integral sabiendo que ", boton: true, formula: "<math-field readonly>x^{n}=\\frac{x^{n+1}}{n+1}</math-field>" },
+            { text:"Unimos ambos resultados", boton: true, formula: "" },
+            { text:"Evaluamos en los intervalos dados", boton: true, formula: "" },
+            { text:"Resultado", boton: true, formula: "" }
+        ]
+    },
+    {
+        pasos: 6,
+        casos: [
+            "\\int_0^{\\infty}\\!\\left(x^2+6\\right)\\,\\mathrm{d}x",
+            "=\\int_0^{\\infty}\\!\\left(\\placeholder[answer0]{?}\\right)\\,\\mathrm{d}x + \\int_0^{\\infty}\\!\\left(\\placeholder[answer1]{?}\\right)\\,\\mathrm{d}x",
+            "=\\left\\lbrack\\frac{x^{\\placeholder[answer2]{?}}}{\\placeholder[answer3]{?}}\\right\\rbrack_\\placeholder[answer4]{?}^{\\placeholder[answer5]{?}} + \\left\\lbrack\\frac{6x^{\\placeholder[answer6]{?}}}{\\placeholder[answer7]{?}}\\right\\rbrack_\\placeholder[answer8]{?}^{\\placeholder[answer9]{?}}",
+            "=\\left\\lbrack\\frac{x^{\\placeholder[answer10]{?}}}{{\\placeholder[answer11]{?}}}+\\frac{6x^{\\placeholder[answer12]{?}}}{{\\placeholder[answer13]{?}}}\\right\\rbrack_0^{\\infty}",
+            "=\\left(\\frac{\\placeholder[answer14]{?}}^{\\placeholder[answer15]{?}}}+ 6\\placeholder[answer16]{?}\\right)-\\left(\\frac{\\placeholder[answer17]{?}}^{\\placeholder[answer18]{?}}} + {\\placeholder[answer19]{?}}\\right)",
+            "\\int_0^{\\infty}\\!\\left(x^2+6\\right)\\,\\mathrm{d}x = {\\placeholder[answer20]{?}}"
+        ],
+        resultados:{
+            answer0: { valorCorrecto: "x^2", estado: false },
+            answer1: { valorCorrecto: "6", estado: false },
+            answer2: { valorCorrecto: "2+1", estado: false },
+            answer3: { valorCorrecto: "2+1", estado: false },
+            answer4: { valorCorrecto: "0", estado: false },
+            answer5: { valorCorrecto: "\\infty", estado: false },
+            answer6: { valorCorrecto: "0+1", estado: false },
+            answer7: { valorCorrecto: "0+1", estado: false },
+            answer8: { valorCorrecto: "0", estado: false },
+            answer9: { valorCorrecto: "\\infty", estado: false },
+            answer10: { valorCorrecto: "3", estado: false },
+            answer11: { valorCorrecto: "3", estado: false },
+            answer12: { valorCorrecto: "1", estado: false },
+            answer13: { valorCorrecto: "1", estado: false },
+            answer14: { valorCorrecto: "\\infty^3", estado: false },
+            answer15: { valorCorrecto: "3", estado: false },
+            answer16: { valorCorrecto: "\\infty", estado: false },
+            answer17: { valorCorrecto: "0", estado: false },
+            answer18: { valorCorrecto: "3", estado: false },
+            answer19: { valorCorrecto: "0", estado: false },
+            answer20: { valorCorrecto: "\\infty", estado: false }
+        },
+        respuestas:[],
+        guia:[
+            { text:"Resolver la integral:", boton: false, formula: "" },
+            { text:"Separamos la integral", boton: true, formula: "" },
+            { text:"Aplica la integral sabiendo que ", boton: true, formula: "<math-field readonly>x^{n}=\\frac{x^{n+1}}{n+1}</math-field>" },
+            { text:"Unimos ambos resultados", boton: true, formula: "" },
+            { text:"Evaluamos en los intervalos dados", boton: true, formula: "" },
+            { text:"Resultado", boton: true, formula: "" }
+        ]
+    },
+    {
+        pasos: 6,
+        casos: [
+            "\\int_0^{2}\\!\\left(x^2+3\\right)\\,\\mathrm{d}x",
+            "=\\int_0^{2}\\!\\left(\\placeholder[answer0]{?}\\right)\\,\\mathrm{d}x + \\int_0^{2}\\!\\left(\\placeholder[answer1]{?}\\right)\\,\\mathrm{d}x",
+            "=\\left\\lbrack\\frac{x^{\\placeholder[answer2]{?}}}{\\placeholder[answer3]{?}}\\right\\rbrack_\\placeholder[answer4]{?}^{\\placeholder[answer5]{?}} + \\left\\lbrack\\frac{3x^{\\placeholder[answer6]{?}}}{\\placeholder[answer7]{?}}\\right\\rbrack_\\placeholder[answer8]{?}^{\\placeholder[answer9]{?}}",
+            "=\\left\\lbrack\\frac{x^{\\placeholder[answer10]{?}}}{{\\placeholder[answer11]{?}}}+\\frac{3x^{\\placeholder[answer12]{?}}}{{\\placeholder[answer13]{?}}}\\right\\rbrack_0^{2}",
+            "=\\left(\\frac{\\placeholder[answer14]{?}}^{\\placeholder[answer15]{?}}}+ 3\\cdot\\placeholder[answer16]{?}\\right)-\\left(\\frac{\\placeholder[answer17]{?}}^{\\placeholder[answer18]{?}}} + {\\placeholder[answer19]{?}}\\right)",
+            "\\int_0^{2}\\!\\left(x^2+3\\right)\\,\\mathrm{d}x = {\\placeholder[answer20]{?}}"
+        ],
+        resultados:{
+            answer0: { valorCorrecto: "x^2", estado: false },
+            answer1: { valorCorrecto: "3", estado: false },
+            answer2: { valorCorrecto: "2+1", estado: false },
+            answer3: { valorCorrecto: "2+1", estado: false },
+            answer4: { valorCorrecto: "0", estado: false },
+            answer5: { valorCorrecto: "2", estado: false },
+            answer6: { valorCorrecto: "0+1", estado: false },
+            answer7: { valorCorrecto: "0+1", estado: false },
+            answer8: { valorCorrecto: "0", estado: false },
+            answer9: { valorCorrecto: "2", estado: false },
+            answer10: { valorCorrecto: "3", estado: false },
+            answer11: { valorCorrecto: "3", estado: false },
+            answer12: { valorCorrecto: "1", estado: false },
+            answer13: { valorCorrecto: "1", estado: false },
+            answer14: { valorCorrecto: "2^3", estado: false },
+            answer15: { valorCorrecto: "3", estado: false },
+            answer16: { valorCorrecto: "2", estado: false },
+            answer17: { valorCorrecto: "0", estado: false },
+            answer18: { valorCorrecto: "3", estado: false },
+            answer19: { valorCorrecto: "0", estado: false },
+            answer20: { valorCorrecto: "\\frac{26}{3}", estado: false }
+        },
+        respuestas:[],
+        guia:[
+            { text:"Resolver la integral:", boton: false, formula: "" },
+            { text:"Separamos la integral", boton: true, formula: "" },
+            { text:"Aplica la integral sabiendo que ", boton: true, formula: "<math-field readonly>x^{n}=\\frac{x^{n+1}}{n+1}</math-field>" },
+            { text:"Unimos ambos resultados", boton: true, formula: "" },
+            { text:"Evaluamos en los intervalos dados", boton: true, formula: "" },
+            { text:"Resultado", boton: true, formula: "" }
+        ]
+    },
+    {
+        pasos: 6,
+        casos: [
+            "\\int_1^{\\infty}\\!\\left(x^2+5\\right)\\,\\mathrm{d}x",
+            "=\\int_1^{\\infty}\\!\\left(\\placeholder[answer0]{?}\\right)\\,\\mathrm{d}x + \\int_1^{\\infty}\\!\\left(\\placeholder[answer1]{?}\\right)\\,\\mathrm{d}x",
+            "=\\left\\lbrack\\frac{x^{\\placeholder[answer2]{?}}}{\\placeholder[answer3]{?}}\\right\\rbrack_\\placeholder[answer4]{?}^{\\placeholder[answer5]{?}} + \\left\\lbrack\\frac{5x^{\\placeholder[answer6]{?}}}{\\placeholder[answer7]{?}}\\right\\rbrack_\\placeholder[answer8]{?}^{\\placeholder[answer9]{?}}",
+            "=\\left\\lbrack\\frac{x^{\\placeholder[answer10]{?}}}{{\\placeholder[answer11]{?}}}+\\frac{5x^{\\placeholder[answer12]{?}}}{{\\placeholder[answer13]{?}}}\\right\\rbrack_1^{\\infty}",
+            "=\\left(\\frac{\\placeholder[answer14]{?}}^{\\placeholder[answer15]{?}}}+ 5\\cdot\\placeholder[answer16]{?}\\right)-\\left(\\frac{\\placeholder[answer17]{?}}^{\\placeholder[answer18]{?}}} + 5\\cdot{\\placeholder[answer19]{?}}\\right)",
+            "\\int_1^{\\infty}\\!\\left(x^2+5\\right)\\,\\mathrm{d}x = {\\placeholder[answer20]{?}}"
+        ],
+        resultados:{
+            answer0: { valorCorrecto: "x^2", estado: false },
+            answer1: { valorCorrecto: "5", estado: false },
+            answer2: { valorCorrecto: "2+1", estado: false },
+            answer3: { valorCorrecto: "2+1", estado: false },
+            answer4: { valorCorrecto: "1", estado: false },
+            answer5: { valorCorrecto: "\\infty", estado: false },
+            answer6: { valorCorrecto: "0+1", estado: false },
+            answer7: { valorCorrecto: "0+1", estado: false },
+            answer8: { valorCorrecto: "1", estado: false },
+            answer9: { valorCorrecto: "\\infty", estado: false },
+            answer10: { valorCorrecto: "3", estado: false },
+            answer11: { valorCorrecto: "3", estado: false },
+            answer12: { valorCorrecto: "1", estado: false },
+            answer13: { valorCorrecto: "1", estado: false },
+            answer14: { valorCorrecto: "\\infty^3", estado: false },
+            answer15: { valorCorrecto: "3", estado: false },
+            answer16: { valorCorrecto: "\\infty", estado: false },
+            answer17: { valorCorrecto: "1^3", estado: false },
+            answer18: { valorCorrecto: "3", estado: false },
+            answer19: { valorCorrecto: "1", estado: false },
+            answer20: { valorCorrecto: "\\infty", estado: false }
+        },
+        respuestas:[],
+        guia:[
+            { text:"Resolver la integral:", boton: false, formula: "" },
+            { text:"Separamos la integral", boton: true, formula: "" },
+            { text:"Aplica la integral sabiendo que ", boton: true, formula: "<math-field readonly>x^{n}=\\frac{x^{n+1}}{n+1}</math-field>" },
+            { text:"Unimos ambos resultados", boton: true, formula: "" },
+            { text:"Evaluamos en los intervalos dados", boton: true, formula: "" },
+            { text:"Resultado", boton: true, formula: "" }
+        ]
+    },
+    {
+        pasos: 6,
+        casos: [
+            "\\int_0^{3}\\!\\left(x^2+5\\right)\\,\\mathrm{d}x",
+            "=\\int_0^{3}\\!\\left(\\placeholder[answer0]{?}\\right)\\,\\mathrm{d}x + \\int_0^{3}\\!\\left(\\placeholder[answer1]{?}\\right)\\,\\mathrm{d}x",
+            "=\\left\\lbrack\\frac{x^{\\placeholder[answer2]{?}}}{\\placeholder[answer3]{?}}\\right\\rbrack_\\placeholder[answer4]{?}^{\\placeholder[answer5]{?}} + \\left\\lbrack\\frac{5x^{\\placeholder[answer6]{?}}}{\\placeholder[answer7]{?}}\\right\\rbrack_\\placeholder[answer8]{?}^{\\placeholder[answer9]{?}}",
+            "=\\left\\lbrack\\frac{x^{\\placeholder[answer10]{?}}}{{\\placeholder[answer11]{?}}}+\\frac{5x^{\\placeholder[answer12]{?}}}{{\\placeholder[answer13]{?}}}\\right\\rbrack_0^{3}",
+            "=\\left(\\frac{\\placeholder[answer14]{?}}^{\\placeholder[answer15]{?}}}+ 5\\cdot\\placeholder[answer16]{?}\\right)-\\left(\\frac{\\placeholder[answer17]{?}}^{\\placeholder[answer18]{?}}} + {\\placeholder[answer19]{?}}\\right)",
+            "\\int_0^{3}\\!\\left(x^2+5\\right)\\,\\mathrm{d}x = {\\placeholder[answer20]{?}}"
+        ],
+        resultados:{
+            answer0: { valorCorrecto: "x^2", estado: false },
+            answer1: { valorCorrecto: "5", estado: false },
+            answer2: { valorCorrecto: "2+1", estado: false },
+            answer3: { valorCorrecto: "2+1", estado: false },
+            answer4: { valorCorrecto: "0", estado: false },
+            answer5: { valorCorrecto: "3", estado: false },
+            answer6: { valorCorrecto: "0+1", estado: false },
+            answer7: { valorCorrecto: "0+1", estado: false },
+            answer8: { valorCorrecto: "0", estado: false },
+            answer9: { valorCorrecto: "3", estado: false },
+            answer10: { valorCorrecto: "3", estado: false },
+            answer11: { valorCorrecto: "3", estado: false },
+            answer12: { valorCorrecto: "1", estado: false },
+            answer13: { valorCorrecto: "1", estado: false },
+            answer14: { valorCorrecto: "3^3", estado: false },
+            answer15: { valorCorrecto: "3", estado: false },
+            answer16: { valorCorrecto: "3", estado: false },
+            answer17: { valorCorrecto: "0", estado: false },
+            answer18: { valorCorrecto: "3", estado: false },
+            answer19: { valorCorrecto: "0", estado: false },
+            answer20: { valorCorrecto: "24", estado: false }
+        },
+        respuestas:[],
+        guia:[
+            { text:"Resolver la integral:", boton: false, formula: "" },
+            { text:"Separamos la integral", boton: true, formula: "" },
+            { text:"Aplica la integral sabiendo que ", boton: true, formula: "<math-field readonly>x^{n}=\\frac{x^{n+1}}{n+1}</math-field>" },
+            { text:"Unimos ambos resultados", boton: true, formula: "" },
+            { text:"Evaluamos en los intervalos dados", boton: true, formula: "" },
+            { text:"Resultado", boton: true, formula: "" }
+        ]
+    }
+];
+
+export { Banco };
