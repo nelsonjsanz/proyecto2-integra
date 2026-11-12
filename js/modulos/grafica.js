@@ -13,19 +13,100 @@ let estadoActual = {
     valorReal: 0
 };
 
+/**
+ * Inyecta estilos responsive encapsulados para el tablero JSXGraph y las tarjetas
+ * garantizando compatibilidad desde móviles (360px) hasta escritorio sin tocar styles.css.
+ */
+function inyectarEstilosResponsive() {
+    if (document.getElementById("estilos-modulo-grafica")) return;
+
+    const style = document.createElement("style");
+    style.id = "estilos-modulo-grafica";
+    style.textContent = `
+        .main-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: flex-start;
+            justify-content: center;
+        }
+        .main-content > .card {
+            flex: 1 1 420px;
+            max-width: 100%;
+            box-sizing: border-box;
+            overflow-x: hidden;
+        }
+        .pasos, .math-field-wrapper {
+            max-width: 100%;
+            overflow-x: auto;
+        }
+        .grafica-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        .btn-pista-riemann {
+            background-color: #ff3b00;
+            color: #ffffff;
+            border: none;
+            border-radius: 20px;
+            padding: 8px 18px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: opacity 0.2s ease, transform 0.1s ease;
+        }
+        .btn-pista-riemann:hover {
+            opacity: 0.9;
+        }
+        .btn-pista-riemann:active {
+            transform: scale(0.98);
+        }
+        #box.jxgbox {
+            width: 100%;
+            height: 400px;
+            border-radius: 10px;
+            border: 1px solid #cbd5e1;
+            box-sizing: border-box;
+        }
+        @media (max-width: 600px) {
+            .main-content > .card {
+                flex: 1 1 100%;
+                padding: 12px;
+            }
+            #box.jxgbox {
+                height: 300px;
+            }
+            .btn-pista-riemann {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    `;
+    document.head.appendChild(style);
+}
+
+/**
+ * Extrae los límites a, b y la función f(x) a partir del objeto del Banco de Kleiver.
+ */
 export function extraerDatosIntegral(ejercicio) {
     if (!ejercicio) return estadoActual;
 
     if (Array.isArray(ejercicio.casos) && ejercicio.casos.length > 0) {
         const latex = ejercicio.casos[0];
-        const matchLimites = latex.match(/\\int_\{?([^}^\\]+)\}?^\{\\?([^}]+)\}/);
+        const matchLimites = latex.match(/\\int_\{?([0-9.-]+)\}?\^\{?(\\infty|\\pi|[0-9.-]+)\}?/);
 
         let a = 0;
         let b = 3;
         let esImpropia = false;
 
         if (matchLimites) {
-            a = parseFloat(matchLimites[1]) || 0;
+            a = parseFloat(matchLimites[1]);
+            if (Number.isNaN(a)) a = 0;
+
             const limSup = matchLimites[2].trim();
             if (limSup.includes("infty")) {
                 esImpropia = true;
@@ -33,7 +114,8 @@ export function extraerDatosIntegral(ejercicio) {
             } else if (limSup.includes("pi")) {
                 b = Math.PI;
             } else {
-                b = parseFloat(limSup) || (a + 3);
+                b = parseFloat(limSup);
+                if (Number.isNaN(b)) b = a + 3;
             }
         }
 
@@ -67,6 +149,9 @@ export function extraerDatosIntegral(ejercicio) {
     };
 }
 
+/**
+ * Convierte la expresión LaTeX en una función evaluable de JavaScript.
+ */
 function crearFuncionEvaluadora(latexStr) {
     let limpia = latexStr
         .replace(/\\mathrm\{d\}x/g, "")
@@ -124,22 +209,24 @@ function actualizarBannerInfo(mensaje, color = "#334155") {
     }
 }
 
+/**
+ * Inicializa la tarjeta gráfica, configura el listener responsive y dibuja el ejercicio.
+ */
 export function iniciar(ejercicioOApp) {
+    inyectarEstilosResponsive();
+
     let contenedor = document.getElementById("box");
     if (!contenedor) {
         const mainContent = document.querySelector(".main-content") || document.body;
         const tarjetaGrafica = document.createElement("div");
         tarjetaGrafica.className = "card";
-        tarjetaGrafica.style.marginTop = "20px";
         tarjetaGrafica.innerHTML = `
-            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
+            <div class="grafica-header">
                 <h2 class="section-title" style="margin:0;">Gráfica Interactiva (JSXGraph)</h2>
-                <div style="display:flex; gap:8px;">
-                    <button id="btn-pista-riemann" type="button" class="btn-validar" style="cursor:pointer;">Pista: Rectángulos de Riemann</button>
-                </div>
+                <button id="btn-pista-riemann" type="button" class="btn-pista-riemann">Pista: Rectángulos de Riemann</button>
             </div>
             <div id="info-grafica" style="font-size:0.95rem; margin-bottom:10px; font-weight:500; color:#334155;"></div>
-            <div id="box" class="jxgbox" style="width:100%; height:400px; border-radius:10px; border:1px solid #cbd5e1;"></div>
+            <div id="box" class="jxgbox"></div>
         `;
         mainContent.appendChild(tarjetaGrafica);
 
@@ -147,6 +234,12 @@ export function iniciar(ejercicioOApp) {
         if (btnPista) {
             btnPista.addEventListener("click", () => mostrarPista());
         }
+
+        window.addEventListener("resize", () => {
+            if (board && contenedor) {
+                board.resizeContainer(contenedor.clientWidth, contenedor.clientHeight);
+            }
+        });
     }
 
     const ejercicio = ejercicioOApp?.ejercicio || ejercicioOApp;
@@ -170,16 +263,21 @@ function calcularBoundingBox(fn, a, b) {
         }
     }
 
-    const margenX = Math.max(1.2, (b - a) * 0.35);
+    const spanX = Math.max(1, b - a);
+    const margenX = Math.max(1.5, spanX * 0.4);
     const altoY = Math.max(4, yMax - yMin);
+
     return [
-        a - margenX,
-        yMax + altoY * 0.4,
+        Math.min(-0.8, a - margenX),
+        yMax + altoY * 0.38,
         b + margenX,
-        Math.min(-altoY * 0.22, yMin - altoY * 0.2)
+        Math.min(-altoY * 0.25, yMin - altoY * 0.25)
     ];
 }
 
+/**
+ * Dibuja los ejes, la curva f(x) y los puntos de los límites a y b.
+ */
 export function dibujarBase() {
     const { fn, a, b, esImpropia, formulaTexto } = estadoActual;
     const bbox = calcularBoundingBox(fn, a, b);
@@ -203,7 +301,7 @@ export function dibujarBase() {
         strokeWidth: 3,
         name: `f(x) = ${formulaTexto}`,
         withLabel: true,
-        label: { position: "top", offset: [10, 10], color: "#1e40af" }
+        label: { position: "urt", offset: [-85, -20], color: "#1e40af", fontSize: 13 }
     });
 
     board.create("point", [a, 0], {
@@ -211,7 +309,8 @@ export function dibujarBase() {
         size: 3,
         fillColor: "#0f172a",
         strokeColor: "#0f172a",
-        fixed: true
+        fixed: true,
+        label: { offset: [-12, -18], color: "#0f172a", fontSize: 12 }
     });
 
     board.create("point", [b, 0], {
@@ -219,7 +318,8 @@ export function dibujarBase() {
         size: 3,
         fillColor: "#0f172a",
         strokeColor: "#0f172a",
-        fixed: true
+        fixed: true,
+        label: { offset: [-12, -18], color: "#0f172a", fontSize: 12 }
     });
 
     if (esImpropia) {
@@ -234,6 +334,9 @@ export function dibujarBase() {
     }
 }
 
+/**
+ * Muestra u oculta los rectángulos de la Suma de Riemann con un slider para n.
+ */
 export function mostrarPista() {
     if (!board) return;
     limpiarObjetosDinamicos();
@@ -251,8 +354,8 @@ export function mostrarPista() {
     board.suspendUpdate();
 
     const xIni = bbox[0] + (bbox[2] - bbox[0]) * 0.06;
-    const xFin = bbox[0] + (bbox[2] - bbox[0]) * 0.42;
-    const yPos = bbox[1] - (bbox[1] - bbox[3]) * 0.1;
+    const xFin = bbox[0] + (bbox[2] - bbox[0]) * 0.40;
+    const yPos = bbox[1] - (bbox[1] - bbox[3]) * 0.10;
 
     const sliderN = board.create("slider", [
         [xIni, yPos],
@@ -263,7 +366,8 @@ export function mostrarPista() {
         snapWidth: 1,
         precision: 0,
         strokeColor: "#0f172a",
-        fillColor: "#f59e0b"
+        fillColor: "#f59e0b",
+        label: { fontSize: 13, strokeColor: "#0f172a" }
     });
 
     const sumaRiemann = board.create("riemannsum", [
@@ -300,6 +404,9 @@ export function mostrarPista() {
     );
 }
 
+/**
+ * Sombrea el área de la integral definida sin solapar etiquetas en los ejes.
+ */
 export function mostrarRespuesta(appOEjercicio, respuestaEstudiante, resultadoObj) {
     if (!board) return;
     limpiarObjetosDinamicos();
@@ -315,9 +422,12 @@ export function mostrarRespuesta(appOEjercicio, respuestaEstudiante, resultadoOb
     const integralSombreada = board.create("integral", [[a, b], curvaOculta], {
         color: colorArea,
         fillOpacity: 0.35,
-        curveLeft: { visible: true, size: 3, strokeColor: colorArea, fillColor: colorArea },
-        curveRight: { visible: true, size: 3, strokeColor: colorArea, fillColor: colorArea },
-        withLabel: false
+        withLabel: false,
+        fixed: true,
+        curveLeft: { visible: true, size: 3, strokeColor: colorArea, fillColor: colorArea, withLabel: false, fixed: true },
+        curveRight: { visible: true, size: 3, strokeColor: colorArea, fillColor: colorArea, withLabel: false, fixed: true },
+        baseLeft: { visible: false, withLabel: false, fixed: true },
+        baseRight: { visible: false, withLabel: false, fixed: true }
     });
 
     objetosDinamicos.push(curvaOculta, integralSombreada);
@@ -334,7 +444,8 @@ export function mostrarRespuesta(appOEjercicio, respuestaEstudiante, resultadoOb
             fillColor: "#6366f1",
             fillOpacity: 0.22,
             borders: { strokeColor: "#4f46e5", dash: 2, strokeWidth: 2 },
-            vertices: { visible: false }
+            vertices: { visible: false },
+            withLabel: false
         });
         objetosDinamicos.push(rectanguloComparativo);
     }
@@ -344,12 +455,12 @@ export function mostrarRespuesta(appOEjercicio, respuestaEstudiante, resultadoOb
     if (aprobado) {
         const textoValor = esImpropia ? "∞" : Number(valorReal.toFixed(2));
         actualizarBannerInfo(
-            `¡Correcto! El área sombreada en verde representa la integral definida con valor exacto = ${textoValor}.`,
+            `¡Correcto! El área sombreada en verde en [${a}, ${Number(b.toFixed(2))}] representa la integral definida con valor exacto = ${textoValor}.`,
             "#15803d"
         );
     } else {
         actualizarBannerInfo(
-            "Respuesta incorrecta en la validación. Se muestra en rojo el área bajo la curva del intervalo para que verifiques tu cálculo.",
+            `Respuesta incorrecta en este paso. Se sombrea en rojo el área en [${a}, ${Number(b.toFixed(2))}] para que verifiques tu cálculo.`,
             "#b91c1c"
         );
     }
