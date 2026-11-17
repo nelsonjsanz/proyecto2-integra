@@ -101,7 +101,33 @@ body {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  max-width: 50%;
+}
+
+.card-niveles .card-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+    padding: 0 15px;
+    background-color: #f9f9f9;
+}
+
+.card-niveles .card-header {
+    cursor: pointer;
+    user-select: none;
+    background-color: #0a7b8c;
+    padding: 10px 15px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    margin: 5px;
+    border: 1px solid black;
+    border-radius: 8px;
+    color: white;
+}
+
+.card-niveles.active .card-body {
+    max-height: max-content;
+    padding: 15px;
 }
 
 .section-title {
