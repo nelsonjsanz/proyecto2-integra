@@ -11,7 +11,7 @@
     <script src="js/lib/jsxgraphcore.js"></script>
     <script>
         window.MathfieldElement = window.MathfieldElement || {};
-        window.MathfieldElement.fontsDirectory = ".js/lib/fonts/";
+        window.MathfieldElement.fontsDirectory = "./js/lib/fonts/";
         window.MathfieldElement.soundsDirectory = null;
     </script>
 </head>
@@ -47,15 +47,59 @@
             </div>
         </div>
     </header>
-
-    <main class="main-content">
+    <section>
         <div class="card">
-            <h2 class="section-title">Ejercicio a resolver</h2>
-
-            <div id="caso_estudio" class="container">
+            <h2 class="section-title">Ejercicio de integración</h2>
+            <div class="card-menu">
+                <div class="card-niveles" data-nivel="1">
+                    <div class="card-header">
+                        <span>Nivel 1</span>
+                        <span class="avance">Avance: 0%</span>
+                    </div>
+                    <div class="card-body">
+                        <main class="main-content nivel_main_1">
+                            <div class="card">
+                                <h2 class="section-title">Ejercicio a resolver</h2>
+                                <div id="caso_estudio_1" class="container">
+                                </div>
+                            </div>
+                        </main>
+                    </div>
+                </div>
+                <div class="card-niveles" data-nivel="2">
+                    <div class="card-header">
+                        <span>Nivel 2</span>
+                        <span class="avance">Avance: 0%</span>
+                    </div>
+                    <div class="card-body">
+                        <main class="main-content nivel_main_2">
+                            <div class="card">
+                                <h2 class="section-title">Ejercicio a resolver</h2>
+                                <div id="caso_estudio_2" class="container">
+                                </div>
+                            </div>
+                        </main>
+                    </div>
+                </div>
+                <div class="card-niveles" data-nivel="3">
+                    <div class="card-header">
+                        <span>Nivel 3</span>
+                        <span class="avance">Avance: 0%</span>
+                    </div>
+                    <div class="card-body">
+                        <main class="main-content nivel_main_3">
+                            <div class="card">
+                                <h2 class="section-title">Ejercicio a resolver</h2>
+                                <div id="caso_estudio_3" class="container">
+                                </div>
+                            </div>
+                        </main>
+                    </div>
+                </div>
             </div>
-        </div>
-    </main>
+        </div>        
+    </section>
+    
 
     <script type="module" src="./js/main.js"></script>
 </body>
